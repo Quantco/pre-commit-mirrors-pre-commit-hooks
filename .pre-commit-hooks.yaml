@@ -3,7 +3,6 @@
     description: prevents giant files from being committed.
     entry: check-added-large-files
     language: conda
-    stages: [commit, push, manual]
 -   id: check-ast-conda
     name: check python ast
     description: simply checks whether the files parse as valid python.
@@ -156,12 +155,6 @@
     language: conda
     entry: forbid-new-submodules
     types: [directory]
--   id: forbid-submodules-conda
-    name: forbid submodules
-    description: forbids any submodules in the repository
-    language: conda
-    entry: 'submodules are not allowed in this repository:'
-    types: [directory]
 -   id: mixed-line-ending-conda
     name: mixed line ending
     description: replaces or checks mixed line ending.
@@ -170,7 +163,7 @@
     types: [text]
 -   id: name-tests-test-conda
     name: python tests naming
-    description: verifies that test files are named correctly.
+    description: this verifies that test files are named correctly.
     entry: name-tests-test
     language: conda
     files: (^|/)tests/.+\.py$
