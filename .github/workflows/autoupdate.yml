@@ -39,7 +39,7 @@ jobs:
             micromamba run -n curl curl "https://raw.githubusercontent.com/pre-commit/pre-commit-hooks/v${new_version}/.pre-commit-hooks.yaml" -o .pre-commit-hooks.yaml
             # change the language to conda
             sed 's/language:\ python/language:\ conda/g' -i .pre-commit-hooks.yaml
-            # append -conda to the name
+            # append -conda to the id
             sed 's/\id:\ \(.*\)/id:\ \1-conda/g' -i .pre-commit-hooks.yaml
 
           fi
