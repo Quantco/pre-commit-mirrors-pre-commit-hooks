@@ -1,8 +1,5 @@
 name: Autoupdate
-on:
- workflow_dispatch:
- schedule:
-   - cron: "0 */6 * * *"
+on: [push]
 
 defaults:
   run:
