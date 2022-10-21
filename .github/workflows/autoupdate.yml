@@ -33,6 +33,15 @@ jobs:
             sed -i "s/$old_version/$new_version/g" environment.yml
             echo "::set-output name=pkgname::$pkgname"
             echo "::set-output name=new-version::$new_version"
+
+            # download upstream .pre-commit-hooks.yaml and modify it
+            micromamba create -y -n curl curl
+            micromamba run -n curl curl "https://raw.githubusercontent.com/pre-commit/pre-commit-hooks/v${new_version}/.pre-commit-hooks.yaml" -o .pre-commit-hooks.yaml
+            # change the language to conda
+            sed 's/language:\ python/language:\ conda/g' -i .pre-commit-hooks.yaml
+            # append -conda to the name
+            sed 's/\id:\ \(.*\)/id:\ \1-conda/g' -i .pre-commit-hooks.yaml
+
           fi
       - uses: peter-evans/create-pull-request@0dfc93c1049996241252d9dc45a270b7c12dec6b
         if: steps.versions.outputs.pkgname
