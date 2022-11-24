@@ -156,6 +156,12 @@
     language: conda
     entry: forbid-new-submodules
     types: [directory]
+-   id: forbid-submodules-conda
+    name: forbid submodules
+    description: forbids any submodules in the repository
+    language: fail
+    entry: 'submodules are not allowed in this repository:'
+    types: [directory]
 -   id: mixed-line-ending-conda
     name: mixed line ending
     description: replaces or checks mixed line ending.
