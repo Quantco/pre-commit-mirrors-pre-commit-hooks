@@ -33,7 +33,7 @@ jobs:
           if [[ "$new_version" != "$old_version" ]]; then
             sed -i "s/$old_version/$new_version/g" environment.yml
             echo "pkgname=$pkgname" >> "$GITHUB_OUTPUT"
-            echo "new_version=$new_version" >> "$GITHUB_OUTPUT"
+            echo "new-version=$new_version" >> "$GITHUB_OUTPUT"
 
             # download upstream .pre-commit-hooks.yaml and modify it
             micromamba create -y -n curl curl
