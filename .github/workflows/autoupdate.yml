@@ -1,8 +1,9 @@
 name: Autoupdate
+
 on:
  workflow_dispatch:
  schedule:
-   - cron: "0 */6 * * *"
+   - cron: "0 0 * * 0"
 
 defaults:
   run:
@@ -16,10 +17,8 @@ jobs:
     steps:
       - name: Checkout branch
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref }}
       - name: Set up Conda env
-        uses: mamba-org/setup-micromamba@e820223f89c8720d6c740ca154a7adf32fcd278a
+        uses: mamba-org/setup-micromamba@8767fb704bd78032e9392f0386bf46950bdd1194
         with:
           environment-file: environment.yml
           environment-name: check-env
@@ -32,17 +31,8 @@ jobs:
           new_version=$(micromamba list -n check-env "$pkgname" --json | jq -r '.[0].version')
           if [[ "$new_version" != "$old_version" ]]; then
             sed -i "s/$old_version/$new_version/g" environment.yml
-            echo "pkgname=$pkgname" >> "$GITHUB_OUTPUT"
-            echo "new-version=$new_version" >> "$GITHUB_OUTPUT"
-
-            # download upstream .pre-commit-hooks.yaml and modify it
-            micromamba create -y -n curl curl
-            micromamba run -n curl curl "https://raw.githubusercontent.com/pre-commit/pre-commit-hooks/v${new_version}/.pre-commit-hooks.yaml" -o .pre-commit-hooks.yaml
-            # change the language to conda
-            sed 's/language:\ python/language:\ conda/g' -i .pre-commit-hooks.yaml
-            # append -conda to the id
-            sed 's/\id:\ \(.*\)/id:\ \1-conda/g' -i .pre-commit-hooks.yaml
-
+            echo "pkgname=$pkgname" >> $GITHUB_OUTPUT
+            echo "new-version=$new_version" >> $GITHUB_OUTPUT
           fi
       - uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38
         if: steps.versions.outputs.pkgname
@@ -52,12 +42,6 @@ jobs:
           body: |
             A new release of ${{ steps.versions.outputs.pkgname }} was detected on conda-forge.
 
-            This PR updates ${{ steps.versions.outputs.pkgname }} to version ${{ steps.versions.outputs.new-version }}.
-
-            **After merging, please manually create and push a ${{ steps.versions.outputs.new-version }} tag:**
-
-            ```
-            bash -xc 'tmp=$(mktemp -d) && git clone ${{ github.server_url }}/${{ github.repository }} $tmp && cd $tmp && git tag ${{ steps.versions.outputs.new-version }} && git push --tags'
-            ```
+            This PR updates ${{ steps.versions.outputs.pkgname }} to version ${{ steps.versions.outputs.new-version }} and will push a tag on merge automatically.
           branch: v${{ steps.versions.outputs.new-version }}
           delete-branch: true
