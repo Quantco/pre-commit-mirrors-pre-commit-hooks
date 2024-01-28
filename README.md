@@ -14,5 +14,5 @@ Add this to your `.pre-commit-config.yaml`
  - repo: https://github.com/quantco/pre-commit-mirrors-pre-commit-hooks
    rev: ''  # Use the sha / tag you want to point at
    hooks:
-     - id: pre-commit-hooks-conda
+     - id: pretty-format-json-conda # or any other of the hooks in pre-commit-hooks
 ```
