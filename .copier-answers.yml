@@ -1,0 +1,7 @@
+# This file is managed by Copier; DO NOT EDIT OR REMOVE.
+_commit: v0.1.4
+_src_path: git@github.com:quantco/copier-template-pre-commit-mirrors
+description: This hook runs pre-commit-hooks.
+entry: pre-commit-hooks
+tool: pre-commit-hooks
+url: https://github.com/pre-commit/pre-commit-hooks
