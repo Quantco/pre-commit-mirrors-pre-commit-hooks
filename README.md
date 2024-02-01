@@ -1,6 +1,6 @@
-# pre-commit-hooks mirror
+# pre-commit-hooks pre-commit hook
 
-Mirror of pre-commit-hooks for pre-commit with conda as a language.
+pre-commit hook of pre-commit-hooks with conda as a `language` / package manager.
 
 For pre-commit: see [here](https://github.com/pre-commit/pre-commit)
 
