@@ -3,7 +3,7 @@
   description: prevents giant files from being committed.
   entry: check-added-large-files
   language: conda
-  stages: [commit, push, manual]
+  stages: [pre-commit, pre-push, manual]
 - id: check-ast-conda
   name: check python ast
   description: simply checks whether the files parse as valid python.
@@ -39,7 +39,7 @@
   entry: check-executables-have-shebangs
   language: conda
   types: [text, executable]
-  stages: [commit, push, manual]
+  stages: [pre-commit, pre-push, manual]
 - id: check-json-conda
   name: check json
   description: checks json files for parseable syntax.
@@ -52,7 +52,7 @@
   entry: check-shebang-scripts-are-executable
   language: conda
   types: [text]
-  stages: [commit, push, manual]
+  stages: [pre-commit, pre-push, manual]
 - id: pretty-format-json-conda
   name: pretty format json
   description: sets a standard for formatting json files.
@@ -131,7 +131,7 @@
   entry: end-of-file-fixer
   language: conda
   types: [text]
-  stages: [commit, push, manual]
+  stages: [pre-commit, pre-push, manual]
 - id: file-contents-sorter-conda
   name: file contents sorter
   description: sorts the lines in specified files (defaults to alphabetical). you must provide list of target files as input in your .pre-commit-config.yaml file.
@@ -198,4 +198,4 @@
   entry: trailing-whitespace-fixer
   language: conda
   types: [text]
-  stages: [commit, push, manual]
+  stages: [pre-commit, pre-push, manual]
