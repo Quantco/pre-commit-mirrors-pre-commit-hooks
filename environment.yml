@@ -2,4 +2,4 @@ channels:
   - conda-forge
   - nodefaults
 dependencies:
-  - pre-commit-hooks=4.6.0
+  - pre-commit-hooks=5.0.0
